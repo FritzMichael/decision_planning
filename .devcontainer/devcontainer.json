@@ -1,0 +1,31 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
+{
+	"name": "Existing Dockerfile",
+	"build": {
+		// Sets the run context to one level up instead of the .devcontainer folder.
+		"context": "..",
+		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+		"dockerfile": "../Dockerfile"
+	},
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {"terminal.integrated.defaultProfile.linux": "bash"},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": ["ms-python.python"],
+
+	"runArgs": ["--network=host", "--shm-size=10gb",
+				"-e", "DISPLAY=${env:DISPLAY}",
+				"-e", "QT_X11_NO_MITSHM=1",
+				"--privileged",
+				"--device", "/dev/snd",
+				"--device", "/dev/dri",
+				"--gpus", "all",
+				// "-e", "DISPLAY=<windows display name>",  // <---- uncomment for windows
+				"-v", "/tmp/.X11-unix:/tmp/.X11-unix"],
+				
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/docker/app,type=bind",
+	"workspaceFolder": "/home/docker/app",
+	"remoteUser": "docker"
+}
