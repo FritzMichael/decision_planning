@@ -164,7 +164,7 @@ class VelocityProfileGenerator(object):
                 temp_dist += path_point_distance(spiral[i], spiral[i-1])
                 if temp_dist > brake_distance:
                     break
-            stop_index = i
+            stop_index = i-1
                 
             # Compute the index to stop decelerating to the slow speed.
             decel_index = 0
@@ -183,7 +183,7 @@ class VelocityProfileGenerator(object):
                 temp_dist += path_point_distance(spiral[i], spiral[i+1])
                 if temp_dist > decel_distance:
                     break
-            decel_index = i
+            decel_index = i+1
                     
 
 
@@ -307,7 +307,7 @@ class VelocityProfileGenerator(object):
             distance += path_point_distance(spiral[i], spiral[i+1])
             if distance > accel_distance:
                 break
-        ramp_end_index = i
+        ramp_end_index = i+1
         
         time_step = 0
         time = 0
@@ -357,7 +357,6 @@ class VelocityProfileGenerator(object):
             # TODO? calculate the distance between points in the spiral
             # Use path_point_distance() function
             dist = path_point_distance(spiral[i], spiral[i+1])
-
             # This should never happen in a "nominal_trajectory", but it's a sanity
             # check
             if desired_speed < dbl_epsilon:
