@@ -94,7 +94,7 @@ class PathPlanner(object):
         goal = self._behavioral_planner.state_transition(ego_state, goal, is_junction, tl_state, sim_time)
 
         if behaviour == Maneuver.STOPPED:
-            max_points = 20
+            max_points = 35
             point_x = x_points[len(x_points)-1]
             point_y = y_points[len(y_points)-1]
 
@@ -148,7 +148,7 @@ class PathPlanner(object):
             best_spiral_idx = best_spirals[len(best_spirals)-1]
         
         index = 0
-        max_points = 20
+        max_points = 35
         add_points = len(spirals_x[best_spiral_idx])
 
         for i in range(max_points):

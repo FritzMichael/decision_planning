@@ -92,14 +92,14 @@ def collision_circles_cost_spiral(spiral : List[PathPoint], obstacles : List[Sta
                     # the distance between the center of each circle and the
                     # obstacle/actor
 
-                    dist = ((circle_center_x - actor_center_x)**2 + (circle_center_y - actor_center_y)**2)**0.5 # Calculate this
+                    dist = np.linalg.norm((circle_center_x - actor_center_x, circle_center_y - actor_center_y)) # Calculate this
 
                     # DONE-Collision checking: Remember that you can get the circle radius
                     # of the car with params.CIRCLE_RADII[c] and the current circle of radius 
                     # of the the obstacle with params.CIRCLE_RADII[c2]. Remember,
                     # which is the condition for it to be a collision.
             
-                    collision = (params.CIRCLE_RADII[c] + params.CIRCLE_RADII[c2]) > dist # Calculate this   
+                    collision = (params.CIRCLE_RADII[c] + params.CIRCLE_RADII[c2]) >= dist # Calculate this   
     #print("summed radii: ", params.CIRCLE_RADII[c] + params.CIRCLE_RADII[c2], "dist: ", dist, "collision: ", collision)
     result = 0
     

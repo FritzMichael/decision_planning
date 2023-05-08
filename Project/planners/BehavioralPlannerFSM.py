@@ -132,7 +132,6 @@ class BehavioralPlannerFSM(object):
     ):
         # Check with the Behavior Planner to see what we are going to do and
         # where our next goal is
-
         goal.acceleration.x = 0
         goal.acceleration.y = 0
         goal.acceleration.z = 0
@@ -149,7 +148,7 @@ class BehavioralPlannerFSM(object):
                 # goal/road, i.e you should use: ang = goal.rotation.yaw + M_PI and then
                 # use cosine and sine to get x and y
                 #
-                ang = goal.rotation.yaw + np.pi
+                ang = goal.rotation.yaw #+ np.pi*2
                 goal.location.x += (
                     np.cos(ang) * self._stop_line_buffer
                 )  # <- calculate appropiate coordinate
@@ -158,9 +157,9 @@ class BehavioralPlannerFSM(object):
                 )  # <- calculate appropiate coordinate
 
                 # DONE-goal speed at stopping point: What should be the goal speed??
-                goal.velocity.x = 0.0  # <- caluclate value
-                goal.velocity.y = 0.0  # <- caluclate value
-                goal.velocity.z = 0.0  # <- caluclate value
+                #goal.velocity.x = 0.0  # <- caluclate value
+                #goal.velocity.y = 0.0  # <- caluclate value
+                #goal.velocity.z = 0.0  # <- caluclate value
 
             else:
                 # DONE-goal speed in nominal state: What should be the goal speed now
@@ -183,7 +182,7 @@ class BehavioralPlannerFSM(object):
 
             # DONE: It turns out that when we teleport, the car is always at speed
             # zero. In this the case, as soon as we enter the DECEL_TO_STOP state,
-            # the condition that we are <= seld._stop_threshold_speed is ALWAYS true and we
+            # the condition that we are <= self._stop_threshold_speed is ALWAYS true and we
             # move straight to "STOPPED" state. To solve this issue (since we don't
             # have a motion controller yet), you should use "distance" instead of
             # speed. Make sure the distance to the stopping point is <=
