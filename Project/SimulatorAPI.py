@@ -102,11 +102,11 @@ _road_pitch = 0
 _road_roll = 0
 
 # orbital camera
-_view_radius = 10
+_view_radius = 20
 _view_radius_change = 0
 _view_yaw = 0
 _view_yaw_change = 0
-_view_pitch = 0
+_view_pitch = -60
 _view_pitch_change = 0
 
 # log 
@@ -229,10 +229,12 @@ class World(object):
 
         # draw spirals
         height_plot_scale = 1.0
-        height_plot_offset = 1.0
+        height_plot_offset = 3.0
         blue = carla.Color(r=0, g=0, b=255)
         green = carla.Color(r=0, g=255, b=0)
         red = carla.Color(r=255, g=0, b=0)
+        if len(spirals_x) == 0:
+            print("No spirals to draw")
         for i in range(len(spirals_x)):
             previous_index = 0
             previous_speed = 0
@@ -248,19 +250,18 @@ class World(object):
                 start.location.y = spirals_y[i][previous_index]
                 end.location.x = spirals_x[i][index]
                 end.location.y = spirals_y[i][index]
-                start.location.z = height_plot_scale * spirals_v[i][previous_index] + height_plot_offset + _road_height
-                end.location.z =  height_plot_scale * spirals_v[i][index] + height_plot_offset + _road_height
+                start.location.z = height_plot_offset + _road_height
+                end.location.z =  height_plot_offset + _road_height
                 self.world.debug.draw_line(start.location, end.location, 0.1, color, .1)
-                previous_index = index  
-
+                previous_index = index
         
         # draw path
         previous_index = 0
         for index in range(res, len(way_points), res):
             start.location = way_points[previous_index].location
             end.location = way_points[index].location
-            start.location.z = height_plot_scale * v_points[previous_index] + height_plot_offset + _road_height
-            end.location.z = height_plot_scale * v_points[index] + height_plot_offset + _road_height
+            start.location.z = height_plot_offset + _road_height
+            end.location.z = height_plot_offset + _road_height
             self.world.debug.draw_line(start.location, end.location, 0.1, carla.Color(r=125, g=125, b=0), .1)
             previous_index = index
         
@@ -303,14 +304,21 @@ class World(object):
                 _pivot.location = self.player.get_transform().location
                 _pivot.location.x += _view_radius * math.cos(math.pi + _view_yaw)
                 _pivot.location.y += _view_radius * math.sin(math.pi + _view_yaw)
-                _view_yaw += _view_yaw_change
+
+                car_yaw = self.player.get_transform().rotation.yaw * math.pi / 180
+
+                print(car_yaw)
+                if _view_yaw - car_yaw > math.pi:
+                    car_yaw += 2 * math.pi
+                    
+                _view_yaw = .9 * (_view_yaw) + .1 * car_yaw
                 _view_pitch += _view_pitch_change
                 _view_radius += _view_radius_change
                 _view_radius = min( max(10, _view_radius), 100)
-                while _view_yaw < -math.pi:
-                    _view_yaw += math.pi
-                while _view_yaw > math.pi:
-                    _view_yaw -= math.pi
+                #while _view_yaw < -math.pi:
+                #    _view_yaw += math.pi
+                #while _view_yaw > math.pi:
+                #    _view_yaw -= math.pi
                 while _view_pitch < -math.pi:
                     _view_pitch += math.pi
                 while _view_pitch > math.pi:

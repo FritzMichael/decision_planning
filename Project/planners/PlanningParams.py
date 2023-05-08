@@ -1,10 +1,10 @@
 
 # Planning Constants
-P_NUM_PATHS = 7                  # TODO - Num of paths (goals)
+P_NUM_PATHS = 11                  # TODO - Num of paths (goals)
 P_LOOKAHEAD_MIN = 8.0            # m
 P_LOOKAHEAD_MAX = 20.0           # m
 P_LOOKAHEAD_TIME = 1.5           # s
-P_GOAL_OFFSET = 1.0              # m
+P_GOAL_OFFSET = 1              # m
 P_ERR_TOLERANCE = 0.1            # m
 P_TIME_GAP = 1.0                 # s
 P_MAX_ACCEL = 1.5                # m/s^2
@@ -15,9 +15,9 @@ P_STOP_THRESHOLD_SPEED = 0.02    # m/s
 P_REQ_STOPPED_TIME = 1.0         # secs
 P_LEAD_VEHICLE_LOOKAHEAD = 20.0  # m
 P_REACTION_TIME = 0.25           # secs
-P_NUM_POINTS_IN_SPIRAL = 21      # TODO - Num of points in the spiral
+P_NUM_POINTS_IN_SPIRAL = 20      # TODO - Num of points in the spiral
 P_STOP_THRESHOLD_DISTANCE = 2    # m
-P_LOOKAHEAD_MIN = 2              # m
+P_LOOKAHEAD_MIN = 5              # m
 P_NUM_POINTS_IN_SPIRAL * 2       # m
 
 CIRCLE_OFFSETS = (-1.0, 1.0, 3.0)  # m
